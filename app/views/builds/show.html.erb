@@ -71,9 +71,11 @@
           <a href="#build_script">Build Script</a>
         </li>
 
-        <li class="section_name">
-          <a href="#brakeman_report">Security Report</a>
-        </li>
+        <% if @brakeman.valid? -%>
+          <li class="section_name">
+            <a href="#brakeman_report">Security Report</a>
+          </li>
+        <% end -%>
 
         <% coverage_report = File.join(@build.artifacts_directory, 'coverage/index.html') -%>
         <% if File.exist?(coverage_report) -%>
@@ -163,10 +165,8 @@
           <a name="brakeman_report"></a>
           <div class="section_content">
             <% if @brakeman.valid? -%>
-              <p><%= image_tag @brakeman.warning_chart -%></p>
-              <p><%= image_tag @brakeman.scanned_chart -%></p>
-            <% else %>
-              <div class="section_content terminal_output">Please execute: bundle exec brakeman --quiet --summary --output tmp/brakeman.csv;</div>
+            <p><%= image_tag @brakeman.warning_chart -%></p>
+            <p><%= image_tag @brakeman.scanned_chart -%></p>
             <% end %>
           </div>
         </div>
